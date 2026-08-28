@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block header_title %}Course Management{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_create') }}" class="badge badge-orange link" style="display:inline-block;margin-bottom:14px;">+ New Course</a>
+{% if courses %}
+  {% for c in courses %}
+  <a href="{{ url_for('admin_course_detail', course_id=c.id) }}" class="class-card" style="text-decoration:none;">
+    <div class="time">{{ c.datetime }}</div>
+    <div class="meta">
+      <h4>{{ c.course_type }}</h4>
+      <p>{{ c.instructor }} &middot; {{ c.attendees|length }} attendee{{ '' if c.attendees|length == 1 else 's' }}</p>
+    </div>
+    <span class="badge badge-gray">{{ c.seats }} seats</span>
+  </a>
+  {% endfor %}
+{% else %}
+  <p class="empty-state">No courses yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block header_title %}Course{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_courses_list') }}" style="font-size:12px;color:var(--muted);display:inline-block;margin-bottom:10px;">&larr; All Courses</a>
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+  <div>
+    <h2 class="title" style="margin-bottom:2px;">{{ course.datetime }}</h2>
+    <p class="subtitle" style="margin:0;">{{ course.course_type }}/ {{ course.instructor }}</p>
+  </div>
+  <a href="{{ url_for('admin_edit_course', course_id=course.id) }}" class="badge badge-orange link">Edit</a>
+</div>
+
+<h3 style="font-size:14px;margin-bottom:6px;">Description</h3>
+<p style="font-size:13px;color:var(--text);line-height:1.6;">{{ course.description }}</p>
+
+<h3 style="font-size:14px;margin:18px 0 10px;">Attendee</h3>
+{% if course.attendees %}
+  <div class="attendee-header">
+    <span class="h-num"></span>
+    <span class="h-row"><span>Name</span><span>Gender/ Age/ Membership</span></span>
+    <span class="h-cancel">Cancel</span>
+  </div>
+  {% for a in course.attendees %}
+  <div class="attendee-item">
+    <div class="attendee-num">{{ loop.index }}</div>
+    <div class="attendee-row {{ 'att-purple' if a.gender=='F' else 'att-navy' }}">
+      <span>{{ a.name }}</span>
+      <span>{{ a.gender }}/ {{ a.age }}y/ {{ a.membership }}</span>
+    </div>
+    <form method="post" action="{{ url_for('cancel_attendee', course_id=course.id, index=loop.index0) }}" onsubmit="return confirm('Do you want to delete this attendee?');">
+      <button type="submit" class="cancel-btn" aria-label="Cancel {{ a.name }}"></button>
+    </form>
+  </div>
+  {% endfor %}
+{% else %}
+  <p class="empty-state" style="margin-top:20px;">No Attendees Yet</p>
+{% endif %}
+{% endblock %}
