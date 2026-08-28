@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block header_title %}Home{% endblock %}
+{% block content %}
+<a href="{{ url_for('class_detail', slug='hiit') }}" class="cat-card cat-hiit"><span>HIIT</span></a>
+<a href="{{ url_for('class_detail', slug='strength') }}" class="cat-card cat-strength"><span>Strength</span></a>
+<a href="{{ url_for('class_detail', slug='pilates') }}" class="cat-card cat-pilates"><span>Pilates</span></a>
+<a href="{{ url_for('class_detail', slug='trx') }}" class="cat-card cat-trx"><span>TRX</span></a>
+{% endblock %}

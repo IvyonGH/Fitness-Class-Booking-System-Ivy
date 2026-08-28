@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block header_title %}Schedule{% endblock %}
+{% block content %}
+<div class="filters">
+  <div class="chip">Type ▾</div>
+  <div class="chip">Level ▾</div>
+  <div class="chip">Instructor ▾</div>
+</div>
+
+<div class="dayrow">
+  {% for d in days %}
+  <div class="day {{ 'active' if loop.index0 == active_day else '' }}">{{ d }}</div>
+  {% endfor %}
+</div>
+
+{% for c in classes %}
+<div class="class-card">
+  <div class="time">{{ c.time }}<br>{{ c.duration }}</div>
+  <div class="meta">
+    <h4>{{ c.name }}</h4>
+    <p>{{ c.instructor }}</p>
+  </div>
+  {% if current_user and current_user.is_admin %}
+    <span class="badge badge-gray">{{ c.seats_left }} left</span>
+  {% elif c.id in booked_ids %}
+    <span class="badge badge-gray">Booked</span>
+  {% elif c.seats_left <= 0 %}
+    <span class="badge badge-gray">Full</span>
+  {% elif endpoint_exists('book_class') %}
+    <form method="post" action="{{ url_for('book_class', class_id=c.id) }}">
+      <button type="submit" class="badge badge-orange link">Book</button>
+    </form>
+  {% else %}
+    <span class="badge badge-gray">{{ c.seats_left }} left</span>
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block pagetitle %}WonderFitness{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar">
+    <span>9:41</span>
+    <span>📶 🔋</span>
+  </div>
+
+  {% block header %}
+  <div class="appheader">
+    {% block header_content %}
+    <h1>{% block header_title %}WonderFitness{% endblock %}</h1>
+    {% endblock %}
+  </div>
+  {% endblock %}
+
+  {% if success_banner %}
+  <div class="banner-success">{{ success_banner }}</div>
+  {% endif %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, msg in messages %}
+      <div class="banner-success {{ 'banner-error' if category=='error' else '' }}">{{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <div class="content {% block content_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block bottomnav %}
+  {% if show_nav %}
+  <div class="bottomnav">
+    <a href="{{ url_for('home') }}" class="{{ 'active' if active=='home' else '' }}">🏠</a>
+    <a href="{{ url_for('timetable') }}" class="{{ 'active' if active=='timetable' else '' }}">🕐</a>
+    {% if current_user and current_user.is_admin %}
+      {% if endpoint_exists('admin_courses_list') %}
+      <a href="{{ url_for('admin_courses_list') }}" class="{{ 'active' if active=='admin_list' else '' }}">📋</a>
+      <a href="{{ url_for('admin_create') }}" class="{{ 'active' if active=='admin' else '' }}">🚩</a>
+      {% endif %}
+    {% else %}
+      {% if endpoint_exists('bookings') %}
+      <a href="{{ url_for('bookings') }}" class="{{ 'active' if active=='bookings' else '' }}">📅</a>
+      {% endif %}
+    <a href="{{ url_for('class_detail', slug='pilates') }}" class="{{ 'active' if active=='class' else '' }}">🧘</a>
+    {% endif %}
+    <a href="{{ url_for('profile') }}" class="{{ 'active' if active=='profile' else '' }}">👤</a>
+  </div>
+  {% endif %}
+  {% endblock %}
+</div>
+</body>
+</html>
