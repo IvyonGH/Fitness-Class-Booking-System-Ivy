@@ -58,11 +58,11 @@ CLASS_INFO = [
 ]
 
 TIMETABLE = [
-    {"_id": 1, "time": "6:00am", "duration": "60min", "name": "HIIT Beginner", "instructor": "Sam Wil", "seats": 15},
-    {"_id": 2, "time": "7:00am", "duration": "60min", "name": "HIIT Beginner", "instructor": "Sam Wil", "seats": 15},
-    {"_id": 3, "time": "7:00am", "duration": "50min", "name": "Strength+Leg", "instructor": "J.Jackson", "seats": 12},
-    {"_id": 4, "time": "7:00am", "duration": "60min", "name": "Pilates Reformer", "instructor": "Jean Biber", "seats": 0},
-    {"_id": 5, "time": "7:00am", "duration": "50min", "name": "Yoga", "instructor": "Wendy Vil", "seats": 10},
+    {"_id": 1, "time": "6:00am", "duration": "60min", "name": "HIIT Beginner", "instructor": "Sam Wil", "seats": 15, "seats_taken": 0},
+    {"_id": 2, "time": "7:00am", "duration": "60min", "name": "HIIT Beginner", "instructor": "Sam Wil", "seats": 15, "seats_taken": 0},
+    {"_id": 3, "time": "7:00am", "duration": "50min", "name": "Strength+Leg", "instructor": "J.Jackson", "seats": 12, "seats_taken": 0},
+    {"_id": 4, "time": "7:00am", "duration": "60min", "name": "Pilates Reformer", "instructor": "Jean Biber", "seats": 0, "seats_taken": 0},
+    {"_id": 5, "time": "7:00am", "duration": "50min", "name": "Yoga", "instructor": "Wendy Vil", "seats": 10, "seats_taken": 0},
 ]
 
 
