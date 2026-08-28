@@ -15,6 +15,7 @@ from seed import seed_if_empty
 import routes_browse
 import routes_booking
 import routes_bookinglist
+import routes_admin
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-only-placeholder-not-for-production")
@@ -22,6 +23,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-only-placeholder-not-for-prod
 routes_browse.register_routes(app)
 routes_booking.register_routes(app)
 routes_bookinglist.register_routes(app)
+routes_admin.register_routes(app)
 
 if __name__ == "__main__":
     seed_if_empty(get_db())

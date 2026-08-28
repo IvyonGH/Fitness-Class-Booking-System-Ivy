@@ -65,6 +65,48 @@ TIMETABLE = [
     {"_id": 5, "time": "7:00am", "duration": "50min", "name": "Yoga", "instructor": "Wendy Vil", "seats": 10, "seats_taken": 0},
 ]
 
+COURSES = [
+    {
+        "_id": 1,
+        "datetime": "26 Aug 6:00 am",
+        "course_type": "HIIT Beginner",
+        "instructor": "Sam Will",
+        "seats": "15",
+        "description": "A beginner-friendly HIIT class designed to build stamina, "
+                        "boost energy, and improve overall fitness through simple, "
+                        "low-impact intervals. Perfect for newcomers who want an "
+                        "effective workout without complex movements.",
+        "attendees": [
+            {"name": "Avery Lane", "gender": "F", "age": 42, "membership": "8m"},
+            {"name": "Jordan Crest", "gender": "M", "age": 32, "membership": "3y2m"},
+            {"name": "Casey Rowan", "gender": "F", "age": 22, "membership": "6m"},
+            {"name": "Jamie Calder", "gender": "F", "age": 23, "membership": "6m"},
+            {"name": "Skylar Hale", "gender": "M", "age": 35, "membership": "2y"},
+            {"name": "Hana Rivers", "gender": "F", "age": 52, "membership": "6y"},
+            {"name": "Lex Marlow", "gender": "M", "age": 30, "membership": "3y"},
+        ],
+    },
+    {
+        "_id": 2,
+        "datetime": "02 Sep 8:00 am",
+        "course_type": "Pilates Reformer",
+        "instructor": "Jean Biber",
+        "seats": "12",
+        "description": "Step into a Reformer course built for power, precision, "
+                        "and flow. Using the Reformer's sliding carriage and "
+                        "adjustable springs, you'll challenge your core, sculpt "
+                        "your muscles, and unlock mobility you didn't know you "
+                        "had. Each class is fast-moving, technique-driven, and "
+                        "designed to leave you feeling strong, aligned, and "
+                        "unstoppable.",
+        "attendees": [
+            {"name": "Riley Osborn", "gender": "F", "age": 29, "membership": "1y4m"},
+            {"name": "Morgan Blake", "gender": "M", "age": 41, "membership": "5y"},
+            {"name": "Quinn Sinclair", "gender": "F", "age": 26, "membership": "3m"},
+        ],
+    },
+]
+
 
 def seed_if_empty(db):
     if db.users.count_documents({}) == 0:
@@ -76,3 +118,9 @@ def seed_if_empty(db):
 
     if db.timetable.count_documents({}) == 0:
         db.timetable.insert_many(TIMETABLE)
+
+    if db.courses.count_documents({}) == 0:
+        db.courses.insert_many(COURSES)
+        db.counters.update_one(
+            {"_id": "course_id"}, {"$set": {"seq": len(COURSES)}}, upsert=True
+        )

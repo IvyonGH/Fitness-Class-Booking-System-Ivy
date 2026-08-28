@@ -1,0 +1,26 @@
+/* Admin: attendees list */
+.attendee-header{
+  display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:8px;
+}
+.attendee-header .h-num{width:18px;flex-shrink:0;}
+.attendee-header .h-row{flex:1;display:flex;justify-content:space-between;padding:0 12px;}
+.attendee-header .h-cancel{width:22px;flex-shrink:0;text-align:center;white-space:nowrap;}
+.attendee-item{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.attendee-item form{margin:0;}
+.attendee-num{width:18px;font-size:11px;color:var(--muted);text-align:center;flex-shrink:0;}
+.attendee-row{
+  flex:1;display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px;border-radius:10px;font-size:12px;color:#fff;
+}
+.attendee-row span:first-child{font-weight:700;}
+.att-purple{background:var(--purple);}
+.att-navy{background:var(--navy-badge);}
+.cancel-btn{
+  width:22px;height:22px;border:none;border-radius:50%;background:var(--border);
+  position:relative;cursor:pointer;flex-shrink:0;
+}
+.cancel-btn::before,.cancel-btn::after{
+  content:"";position:absolute;top:50%;left:50%;width:10px;height:2px;background:var(--muted);
+}
+.cancel-btn::before{transform:translate(-50%,-50%) rotate(45deg);}
+.cancel-btn::after{transform:translate(-50%,-50%) rotate(-45deg);}

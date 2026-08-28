@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block header_title %}{{ 'Course Management' if course else 'Create Course' }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('admin_courses_list') }}" style="font-size:12px;color:var(--muted);display:inline-block;margin-bottom:10px;">&larr; All Courses</a>
+<h2 class="title">{{ 'Create New Course' if not course else 'Edit Course' }}</h2>
+<form method="post">
+  <div class="field">
+    <span class="icon">🕐</span>
+    <input type="text" name="datetime" placeholder="Time" value="{{ request.form.get('datetime', course.datetime if course else '') }}">
+  </div>
+  <div class="field">
+    <span class="icon">🏷</span>
+    <input type="text" name="course_type" placeholder="Course Type" value="{{ request.form.get('course_type', course.course_type if course else '') }}">
+  </div>
+  <div class="field">
+    <span class="icon">🧑</span>
+    <input type="text" name="instructor" placeholder="Instructor" value="{{ request.form.get('instructor', course.instructor if course else '') }}">
+  </div>
+  <div class="field">
+    <span class="icon">💺</span>
+    <input type="text" name="seats" placeholder="Seats" value="{{ request.form.get('seats', course.seats if course else '') }}">
+  </div>
+  <div class="field" style="align-items:flex-start;">
+    <span class="icon">📝</span>
+    <textarea name="description" placeholder="Description" style="border:none;padding:0;min-height:70px;">{{ request.form.get('description', course.description if course else '') }}</textarea>
+  </div>
+  <button type="submit" class="btn">{{ 'Save' if course else 'Create' }}</button>
+</form>
+{% endblock %}
