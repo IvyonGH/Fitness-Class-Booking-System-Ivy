@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block header_title %}Profile{% endblock %}
+{% block content %}
+<div class="profile-head">
+  <div class="avatar-wrap">
+    <div class="avatar">{{ (current_user.name[0] if current_user else '?')|upper }}</div>
+    <span class="avatar-edit">✎</span>
+  </div>
+</div>
+<form method="post">
+  <div class="field">
+    <span class="icon">👤</span>
+    <input type="text" name="name" placeholder="Name" value="{{ current_user.name if current_user else '' }}">
+  </div>
+  <div class="field">
+    <span class="icon">✉️</span>
+    <input type="email" name="email" placeholder="Email account" value="{{ current_user.email if current_user else '' }}">
+  </div>
+  <div class="field">
+    <span class="icon">📱</span>
+    <input type="text" value="{{ current_user.phone if current_user else '' }}" disabled>
+  </div>
+  <div class="field">
+    <span class="icon">📍</span>
+    <input type="text" name="location" placeholder="Location" value="{{ current_user.location if current_user else '' }}">
+  </div>
+  <button type="submit" class="btn">Save Change</button>
+</form>
+{% endblock %}

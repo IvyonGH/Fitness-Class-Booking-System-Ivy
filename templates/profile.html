@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block header_title %}Profile{% endblock %}
+{% block content %}
+<div class="profile-head">
+  <div class="avatar">{{ (current_user.name[0] if current_user else '?')|upper }}</div>
+  <h3>{{ current_user.name if current_user else '' }}</h3>
+  <p>{{ current_user.email if current_user else '' }}</p>
+</div>
+<div class="menu-list">
+  <a class="menu-item" href="{{ url_for('profile_edit') }}"><span class="icon">👤</span> My Profile <span class="chev">›</span></a>
+  <a class="menu-item" href="#"><span class="icon">⚙️</span> Settings <span class="chev">›</span></a>
+  <a class="menu-item" href="#"><span class="icon">🔔</span> Notification <span class="chev">›</span></a>
+  <a class="menu-item danger" href="{{ url_for('logout') }}"><span class="icon">🚪</span> Log Out</a>
+</div>
+{% endblock %}
