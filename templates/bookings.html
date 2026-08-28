@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block header_title %}My Bookings{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{{ url_for('static', filename='css/bookings.css') }}">{% endblock %}
+{% block content %}
+<div class="tabrow">
+  <a href="{{ url_for('bookings', tab='history') }}" class="tab {{ 'active' if tab=='history' else '' }}">History</a>
+  <a href="{{ url_for('bookings', tab='future') }}" class="tab {{ 'active' if tab=='future' else '' }}">Future</a>
+  <a href="{{ url_for('bookings', tab='cancelled') }}" class="tab {{ 'active' if tab=='cancelled' else '' }}">Cancelled</a>
+</div>
+
+{% if items %}
+  {% for b in items %}
+  <div class="class-card">
+    <div class="time">{{ b.date }}<br>{{ b.time }}</div>
+    <div class="meta">
+      <h4>{{ b.name }}</h4>
+      <p>{{ b.sub }}</p>
+    </div>
+    {% if tab == 'future' %}
+    <form method="post" action="{{ url_for('cancel_booking', booking_id=b.id) }}">
+      <button type="submit" class="badge badge-green link">Cancel</button>
+    </form>
+    {% elif tab == 'cancelled' %}
+      <span class="badge badge-gray">Cancelled</span>
+    {% else %}
+      <span class="badge badge-gray">Done</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+{% else %}
+  <p class="empty-state">Nothing here yet.</p>
+{% endif %}
+{% endblock %}

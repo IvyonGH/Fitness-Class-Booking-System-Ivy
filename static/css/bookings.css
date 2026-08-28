@@ -1,0 +1,7 @@
+/* Bookings tabs */
+.tabrow{display:flex;gap:8px;margin-bottom:16px;}
+.tabrow .tab{
+  flex:1;text-align:center;padding:8px 0;border-radius:8px;font-size:12px;font-weight:600;
+  color:var(--muted);background:var(--card);border:1px solid var(--border);
+}
+.tabrow .tab.active{background:var(--primary-dark);color:#fff;border-color:var(--primary-dark);}
