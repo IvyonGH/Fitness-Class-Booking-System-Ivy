@@ -103,10 +103,17 @@ def register_routes(app):
             )
         }
         days = ["S", "M", "T", "W", "T", "F", "S"]
-        classes = [
-            {**c, "id": c["_id"], "seats_left": seats_left(c["_id"])}
-            for c in d.timetable.find().sort("_id")
-        ]
+        # Timetable sessions aren't linked to a class_info category by id, so
+        # guess the matching category page by checking whether its title
+        # (e.g. "HIIT") appears in the session name (e.g. "HIIT Beginner").
+        categories = [(c["_id"], c["title"]) for c in d.class_info.find()]
+        classes = []
+        for c in d.timetable.find().sort("_id"):
+            info_slug = next(
+                (slug for slug, title in categories if title.lower() in c["name"].lower()),
+                None,
+            )
+            classes.append({**c, "id": c["_id"], "seats_left": seats_left(c["_id"]), "info_slug": info_slug})
         return render_template(
             "timetable.html",
             classes=classes,
