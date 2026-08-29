@@ -95,7 +95,13 @@ def register_routes(app):
         if (r := require_login()):
             return r
         d = get_db()
-        booked_ids = {b["class_id"] for b in d.bookings.find({"status": "future"}, {"class_id": 1})}
+        user = current_user()
+        booked_ids = {
+            b["class_id"]
+            for b in d.bookings.find(
+                {"status": "future", "user_phone": user["phone"]}, {"class_id": 1}
+            )
+        }
         days = ["S", "M", "T", "W", "T", "F", "S"]
         classes = [
             {**c, "id": c["_id"], "seats_left": seats_left(c["_id"])}
