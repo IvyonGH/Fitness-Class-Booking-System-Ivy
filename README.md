@@ -11,7 +11,7 @@ cp .env.example .env
 python app.py
 ```
 
-Users, classes, the timetable and bookings are stored in MongoDB (see
+Users, classes, the schedule and bookings are stored in MongoDB (
 `db.py` / `seed.py`); the database is seeded automatically on first run.
 Admin course/roster data is still in-memory pending its own migration.
 
@@ -19,8 +19,8 @@ Then open **http://127.0.0.1:5000** in your browser, it is seen as a phone scree
 frame built into the CSS).
 
 Log in with the seeded demo account: 
-user: phone `+61412345678`, any password(or leave password blank) Or just register a new account
-admin: phone `+61400000000`, any password(or leave password blank)
+User: phone `+61412345678`, any password(or leave password blank) Or just register a new account
+Admin: phone `+61400000000`, any password(or leave password blank)
 
 | Figma frame(s) | App route | Notes |
 |---|---|---|
