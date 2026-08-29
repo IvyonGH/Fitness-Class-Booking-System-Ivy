@@ -17,22 +17,29 @@
 <div class="class-card">
   <div class="time">{{ c.time }}<br>{{ c.duration }}</div>
   <div class="meta">
-    <h4>{{ c.name }}</h4>
+    {% if c.info_slug and endpoint_exists('class_detail') %}
+      <a href="{{ url_for('class_detail', slug=c.info_slug) }}"><h4>{{ c.name }}</h4></a>
+    {% else %}
+      <h4>{{ c.name }}</h4>
+    {% endif %}
     <p>{{ c.instructor }}</p>
   </div>
+  <div class="card-actions">
   {% if current_user and current_user.is_admin %}
     <span class="badge badge-gray">{{ c.seats_left }} left</span>
-  {% elif c.id in booked_ids %}
-    <span class="badge badge-gray">Booked</span>
   {% elif c.seats_left <= 0 %}
     <span class="badge badge-gray">Full</span>
-  {% elif endpoint_exists('book_class') %}
-    <form method="post" action="{{ url_for('book_class', class_id=c.id) }}">
-      <button type="submit" class="badge badge-orange link">Book</button>
-    </form>
   {% else %}
     <span class="badge badge-gray">{{ c.seats_left }} left</span>
+    {% if c.id in booked_ids %}
+      <span class="badge badge-gray">Booked</span>
+    {% elif endpoint_exists('book_class') %}
+      <form method="post" action="{{ url_for('book_class', class_id=c.id) }}">
+        <button type="submit" class="badge badge-orange link">Book</button>
+      </form>
+    {% endif %}
   {% endif %}
+  </div>
 </div>
 {% endfor %}
 {% endblock %}
